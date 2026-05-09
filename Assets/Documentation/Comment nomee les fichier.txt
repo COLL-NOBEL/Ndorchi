@@ -1,0 +1,11 @@
+ Les Prefixes sauve des vies:
+
+T_ pour Textures (exemple, T_Grass_Dark)
+
+M_ pour les Materiels (exemple, M_Zone_Danger)
+
+PF_ pour les Prefabs (exemple, PF_Box_Red)
+
+SM_ pour des Models Static (exemple, SM_Tree_Oak)
+
+A_ pour les Audio (exemple, A_Jump_01)
