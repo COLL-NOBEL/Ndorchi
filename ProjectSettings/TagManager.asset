@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Shooter_Zone
   - Dodger_Zone
+  - Ball
+  - Shooter
+  - Dodger
+  - Wall
   layers:
   - Default
   - TransparentFX
