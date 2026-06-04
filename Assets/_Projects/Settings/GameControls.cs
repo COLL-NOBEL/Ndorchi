@@ -107,7 +107,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""id"": ""91fe0bcb-59e5-478a-a9d3-44e73f692151"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=0.8)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -209,7 +209,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""15e8d54e-4f84-49ef-b269-afb8616387ed"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Throw"",
