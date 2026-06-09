@@ -1,43 +1,108 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // Must have this for the new system!
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 10f;
+    public enum MovementRole { Unassigned, Dodger, Shooter }
     
-    private Rigidbody rb;
-    private Vector2 moveInput;
+    [Header("Role Binding")]
+    public MovementRole playerRole = MovementRole.Unassigned;
 
-    void Start()
+    [Header("Movement Settings")]
+    public float moveSpeed = 8f;
+
+    private Rigidbody rb;
+    private GameControls inputActions;
+    private Vector2 movementInput;
+    
+    private BallLauncher ballLauncher;
+    private DodgerCatchAction catchComponent;
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-
-        // 1. Get a reference to the Input Action asset attached to this player
-        var playerInput = GetComponent<PlayerInput>();
-
-        // 2. Disable EVERYTHING first (The "Clean Slate")
-        playerInput.actions.Disable();
-
-        // 3. Enable ONLY the specific map we want to use for this player
-        // Replace "Player" with whatever you named your Action Map in Task 1.1
-        playerInput.actions.FindActionMap("Dodger").Enable();
+        ballLauncher = GetComponent<BallLauncher>();
+        catchComponent = GetComponent<DodgerCatchAction>();
+        inputActions = new GameControls();
     }
 
-    // This function is called by the "Player Input" component automatically
-    // Make sure the Message in Player Input is set to "Send Messages"
-    void OnMove(InputValue value)
+    private void OnEnable()
     {
-        // Store the WASD input (Vector2 has X and Y)
-        moveInput = value.Get<Vector2>();
+        ConfigureInputHandling();
     }
 
-    void FixedUpdate()
+    private void OnDisable()
     {
-        // We use FixedUpdate for Physics/Rigidbody movement
-        // We move on the X and Z axis (floor), not the Y (up)
-        Vector3 moveDirection = new Vector3(moveInput.x, 0, moveInput.y);
+        UnsubscribeFromEvents();
+        if (inputActions != null) inputActions.Disable();
+    }
+
+    public void AssignRole(MovementRole newRole)
+    {
+        UnsubscribeFromEvents();
+        playerRole = newRole;
+        ConfigureInputHandling();
+    }
+
+    private void ConfigureInputHandling()
+    {
+        if (inputActions == null) return;
+        inputActions.Disable();
+
+        if (playerRole == MovementRole.Dodger)
+        {
+            inputActions.Dodger.Move.performed += OnDodgerMovePerformed;
+            inputActions.Dodger.Move.canceled += OnDodgerMoveCanceled;
+            
+            // Task 4.5.3 Dodger Extra Action Mapping
+            inputActions.Dodger.Catch.started += OnCatchInputTriggered;
+            inputActions.Dodger.Drop.started += OnDropInputTriggered;
+
+            inputActions.Dodger.Enable();
+        }
+        else if (playerRole == MovementRole.Shooter)
+        {
+            inputActions.Shooter.Move.performed += OnShooterMovePerformed;
+            inputActions.Shooter.Move.canceled += OnShooterMoveCanceled;
+            inputActions.Shooter.Enable();
+        }
+
+        if (ballLauncher != null) ballLauncher.RegisterInputs(playerRole);
+    }
+
+    private void UnsubscribeFromEvents()
+    {
+        if (inputActions == null) return;
+
+        inputActions.Dodger.Move.performed -= OnDodgerMovePerformed;
+        inputActions.Dodger.Move.canceled -= OnDodgerMoveCanceled;
+        inputActions.Dodger.Catch.started -= OnCatchInputTriggered;
+        inputActions.Dodger.Drop.started -= OnDropInputTriggered;
+
+        inputActions.Shooter.Move.performed -= OnShooterMovePerformed;
+        inputActions.Shooter.Move.canceled -= OnShooterMoveCanceled;
         
-        // Apply velocity directly for snappy, athletic movement
-        rb.linearVelocity = moveDirection * moveSpeed;
+        if (ballLauncher != null) ballLauncher.UnregisterInputs();
+    }
+
+    private void OnCatchInputTriggered(InputAction.CallbackContext context)
+    {
+        if (catchComponent != null && playerRole == MovementRole.Dodger) catchComponent.ExecuteCatch();
+    }
+
+    private void OnDropInputTriggered(InputAction.CallbackContext context)
+    {
+        if (catchComponent != null && playerRole == MovementRole.Dodger) catchComponent.ExecuteDrop();
+    }
+
+    private void OnDodgerMovePerformed(InputAction.CallbackContext context) => movementInput = context.ReadValue<Vector2>();
+    private void OnDodgerMoveCanceled(InputAction.CallbackContext context) => movementInput = Vector2.zero;
+    private void OnShooterMovePerformed(InputAction.CallbackContext context) => movementInput = context.ReadValue<Vector2>();
+    private void OnShooterMoveCanceled(InputAction.CallbackContext context) => movementInput = Vector2.zero;
+
+    private void FixedUpdate()
+    {
+        Vector3 moveVector = new Vector3(movementInput.x, 0f, movementInput.y) * moveSpeed;
+        rb.linearVelocity = new Vector3(moveVector.x, rb.linearVelocity.y, moveVector.z);
     }
 }

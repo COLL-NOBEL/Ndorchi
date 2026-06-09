@@ -1144,7 +1144,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650f94eb051c97a468f0cb7f3e657e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallLauncher
-  throwForce: 20
+  minThrowForce: 15
+  maxThrowForce: 45
+  chargeSpeed: 20
+  precisionBar: {fileID: 0}
+  maxSpreadAngle: 30
   launchPoint: {fileID: 1756013895}
 --- !u!1 &346920131
 GameObject:

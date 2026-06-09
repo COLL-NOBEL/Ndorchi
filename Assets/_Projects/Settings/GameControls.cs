@@ -102,13 +102,13 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Throw"",
-                    ""type"": ""Button"",
+                    ""name"": ""DodgerThrow"",
+                    ""type"": ""Value"",
                     ""id"": ""91fe0bcb-59e5-478a-a9d3-44e73f692151"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Dodge"",
@@ -132,6 +132,15 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""name"": ""Catch"",
                     ""type"": ""Button"",
                     ""id"": ""1e2e31ac-ff8e-46f4-b384-fd8d8af52dc9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Drop"",
+                    ""type"": ""Button"",
+                    ""id"": ""298941fb-5f87-440e-9fbe-1b1808c5b2b8"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -164,7 +173,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""up"",
                     ""id"": ""83b21e1b-763a-4cd5-a785-ff1550c1e2df"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -175,7 +184,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""down"",
                     ""id"": ""4899c483-286c-43b0-b6da-587538e1e7aa"",
-                    ""path"": ""<Keyboard>/s"",
+                    ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -186,7 +195,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""left"",
                     ""id"": ""dec96883-2299-4320-9957-d8c01b71c736"",
-                    ""path"": ""<Keyboard>/a"",
+                    ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -197,7 +206,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""d4a3d127-1e54-42d8-abcd-bae6d75e0f41"",
-                    ""path"": ""<Keyboard>/d"",
+                    ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -212,7 +221,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Throw"",
+                    ""action"": ""DodgerThrow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -248,17 +257,28 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""action"": ""Catch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""82827704-757e-415f-9d82-8bfa4190a31c"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
         {
             ""name"": ""Shooter"",
-            ""id"": ""15d7649d-85de-47b9-a474-8cbd6716d73d"",
+            ""id"": ""c966d4c7-9065-4c24-b3c1-abb45ecd627e"",
             ""actions"": [
                 {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
-                    ""id"": ""c2247426-6be1-4eb4-bb56-486c99dfd789"",
+                    ""id"": ""ea8912ab-dda0-45ce-9af2-a78c51448855"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -266,8 +286,17 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Throw"",
+                    ""type"": ""Value"",
+                    ""id"": ""dfb5f377-8a72-41de-9350-d019b9ebf483"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Dodge"",
                     ""type"": ""Button"",
-                    ""id"": ""f09fe23a-85e3-4f11-b725-ead6b6d849f2"",
+                    ""id"": ""426cdd35-6a79-4de8-bdbc-6b7751edf37b"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -276,7 +305,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Faint"",
                     ""type"": ""Button"",
-                    ""id"": ""55da10a0-691a-4506-9a35-8edc3e2c8f52"",
+                    ""id"": ""561c2de8-ca3e-4b7b-a482-1ba93b58ca33"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -285,7 +314,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Catch"",
                     ""type"": ""Button"",
-                    ""id"": ""c7d4c8b0-6a6c-4a1b-8dc6-09e913feb548"",
+                    ""id"": ""d24eee53-aa5a-4dcc-8f53-320781a9bdec"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -295,7 +324,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""40761a6b-14b2-412a-907d-a99bd42833e2"",
+                    ""id"": ""f7f222d0-03a6-4305-ba6a-fcddfe3c0fdc"",
                     ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
@@ -306,7 +335,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""WASD"",
-                    ""id"": ""552667e3-83b2-4c6c-b77d-76de273ed180"",
+                    ""id"": ""60936d7a-86e1-4bab-a5f7-0c397d94bd0b"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -317,7 +346,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""5baa7767-1687-4251-9862-63af85a90903"",
+                    ""id"": ""d5b0aedf-869a-432f-930d-f0b52aead163"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -328,7 +357,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""3e36eb5e-30b0-4074-931c-321515f7363f"",
+                    ""id"": ""b1147fff-74a5-49c8-b0b6-5313b4cf73f6"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -339,7 +368,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""a3d4bc5e-ce9f-477e-82bb-baa9eaa484e9"",
+                    ""id"": ""929cf5d5-467a-4292-a437-72f83575866e"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -350,7 +379,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""06e151dd-c021-4851-86c6-b09f0777231c"",
+                    ""id"": ""0de789b9-78e0-4a13-bbea-61a6c07b7ac2"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -361,7 +390,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f47e277f-ae0c-4cae-aef4-679c8bba53cb"",
+                    ""id"": ""ea477e31-686e-4fa0-9858-557485257081"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -372,7 +401,18 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""70cd2a7f-9554-45f4-bdcc-3ffc0ba7e462"",
+                    ""id"": ""568d4171-c6b8-4227-87dc-a58893febd5a"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e28f8c3-3c88-45ce-bdd3-f7b8fec6d9f8"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -383,7 +423,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6e9e29cb-1560-479c-91d5-4132c5cac1db"",
+                    ""id"": ""38c68dbe-7885-4967-a5bb-28aa12f54072"",
                     ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -400,14 +440,16 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         // Dodger
         m_Dodger = asset.FindActionMap("Dodger", throwIfNotFound: true);
         m_Dodger_Move = m_Dodger.FindAction("Move", throwIfNotFound: true);
-        m_Dodger_Throw = m_Dodger.FindAction("Throw", throwIfNotFound: true);
+        m_Dodger_DodgerThrow = m_Dodger.FindAction("DodgerThrow", throwIfNotFound: true);
         m_Dodger_Dodge = m_Dodger.FindAction("Dodge", throwIfNotFound: true);
         m_Dodger_Faint = m_Dodger.FindAction("Faint", throwIfNotFound: true);
         m_Dodger_Catch = m_Dodger.FindAction("Catch", throwIfNotFound: true);
+        m_Dodger_Drop = m_Dodger.FindAction("Drop", throwIfNotFound: true);
         // Shooter
         m_Shooter = asset.FindActionMap("Shooter", throwIfNotFound: true);
         m_Shooter_Move = m_Shooter.FindAction("Move", throwIfNotFound: true);
         m_Shooter_Throw = m_Shooter.FindAction("Throw", throwIfNotFound: true);
+        m_Shooter_Dodge = m_Shooter.FindAction("Dodge", throwIfNotFound: true);
         m_Shooter_Faint = m_Shooter.FindAction("Faint", throwIfNotFound: true);
         m_Shooter_Catch = m_Shooter.FindAction("Catch", throwIfNotFound: true);
     }
@@ -492,10 +534,11 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Dodger;
     private List<IDodgerActions> m_DodgerActionsCallbackInterfaces = new List<IDodgerActions>();
     private readonly InputAction m_Dodger_Move;
-    private readonly InputAction m_Dodger_Throw;
+    private readonly InputAction m_Dodger_DodgerThrow;
     private readonly InputAction m_Dodger_Dodge;
     private readonly InputAction m_Dodger_Faint;
     private readonly InputAction m_Dodger_Catch;
+    private readonly InputAction m_Dodger_Drop;
     /// <summary>
     /// Provides access to input actions defined in input action map "Dodger".
     /// </summary>
@@ -512,9 +555,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Move => m_Wrapper.m_Dodger_Move;
         /// <summary>
-        /// Provides access to the underlying input action "Dodger/Throw".
+        /// Provides access to the underlying input action "Dodger/DodgerThrow".
         /// </summary>
-        public InputAction @Throw => m_Wrapper.m_Dodger_Throw;
+        public InputAction @DodgerThrow => m_Wrapper.m_Dodger_DodgerThrow;
         /// <summary>
         /// Provides access to the underlying input action "Dodger/Dodge".
         /// </summary>
@@ -527,6 +570,10 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Dodger/Catch".
         /// </summary>
         public InputAction @Catch => m_Wrapper.m_Dodger_Catch;
+        /// <summary>
+        /// Provides access to the underlying input action "Dodger/Drop".
+        /// </summary>
+        public InputAction @Drop => m_Wrapper.m_Dodger_Drop;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -556,9 +603,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Throw.started += instance.OnThrow;
-            @Throw.performed += instance.OnThrow;
-            @Throw.canceled += instance.OnThrow;
+            @DodgerThrow.started += instance.OnDodgerThrow;
+            @DodgerThrow.performed += instance.OnDodgerThrow;
+            @DodgerThrow.canceled += instance.OnDodgerThrow;
             @Dodge.started += instance.OnDodge;
             @Dodge.performed += instance.OnDodge;
             @Dodge.canceled += instance.OnDodge;
@@ -568,6 +615,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Catch.started += instance.OnCatch;
             @Catch.performed += instance.OnCatch;
             @Catch.canceled += instance.OnCatch;
+            @Drop.started += instance.OnDrop;
+            @Drop.performed += instance.OnDrop;
+            @Drop.canceled += instance.OnDrop;
         }
 
         /// <summary>
@@ -582,9 +632,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Throw.started -= instance.OnThrow;
-            @Throw.performed -= instance.OnThrow;
-            @Throw.canceled -= instance.OnThrow;
+            @DodgerThrow.started -= instance.OnDodgerThrow;
+            @DodgerThrow.performed -= instance.OnDodgerThrow;
+            @DodgerThrow.canceled -= instance.OnDodgerThrow;
             @Dodge.started -= instance.OnDodge;
             @Dodge.performed -= instance.OnDodge;
             @Dodge.canceled -= instance.OnDodge;
@@ -594,6 +644,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Catch.started -= instance.OnCatch;
             @Catch.performed -= instance.OnCatch;
             @Catch.canceled -= instance.OnCatch;
+            @Drop.started -= instance.OnDrop;
+            @Drop.performed -= instance.OnDrop;
+            @Drop.canceled -= instance.OnDrop;
         }
 
         /// <summary>
@@ -633,6 +686,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     private List<IShooterActions> m_ShooterActionsCallbackInterfaces = new List<IShooterActions>();
     private readonly InputAction m_Shooter_Move;
     private readonly InputAction m_Shooter_Throw;
+    private readonly InputAction m_Shooter_Dodge;
     private readonly InputAction m_Shooter_Faint;
     private readonly InputAction m_Shooter_Catch;
     /// <summary>
@@ -654,6 +708,10 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Shooter/Throw".
         /// </summary>
         public InputAction @Throw => m_Wrapper.m_Shooter_Throw;
+        /// <summary>
+        /// Provides access to the underlying input action "Shooter/Dodge".
+        /// </summary>
+        public InputAction @Dodge => m_Wrapper.m_Shooter_Dodge;
         /// <summary>
         /// Provides access to the underlying input action "Shooter/Faint".
         /// </summary>
@@ -694,6 +752,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Throw.started += instance.OnThrow;
             @Throw.performed += instance.OnThrow;
             @Throw.canceled += instance.OnThrow;
+            @Dodge.started += instance.OnDodge;
+            @Dodge.performed += instance.OnDodge;
+            @Dodge.canceled += instance.OnDodge;
             @Faint.started += instance.OnFaint;
             @Faint.performed += instance.OnFaint;
             @Faint.canceled += instance.OnFaint;
@@ -717,6 +778,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Throw.started -= instance.OnThrow;
             @Throw.performed -= instance.OnThrow;
             @Throw.canceled -= instance.OnThrow;
+            @Dodge.started -= instance.OnDodge;
+            @Dodge.performed -= instance.OnDodge;
+            @Dodge.canceled -= instance.OnDodge;
             @Faint.started -= instance.OnFaint;
             @Faint.performed -= instance.OnFaint;
             @Faint.canceled -= instance.OnFaint;
@@ -771,12 +835,12 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Throw" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "DodgerThrow" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnThrow(InputAction.CallbackContext context);
+        void OnDodgerThrow(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Dodge" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -798,6 +862,13 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCatch(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Drop" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDrop(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Shooter" which allows adding and removing callbacks.
@@ -820,6 +891,13 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnThrow(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Dodge" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDodge(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Faint" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
