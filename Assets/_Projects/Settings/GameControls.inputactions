@@ -16,13 +16,13 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Throw",
-                    "type": "Button",
+                    "name": "DodgerThrow",
+                    "type": "Value",
                     "id": "91fe0bcb-59e5-478a-a9d3-44e73f692151",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Dodge",
@@ -46,6 +46,15 @@
                     "name": "Catch",
                     "type": "Button",
                     "id": "1e2e31ac-ff8e-46f4-b384-fd8d8af52dc9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Drop",
+                    "type": "Button",
+                    "id": "298941fb-5f87-440e-9fbe-1b1808c5b2b8",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -78,7 +87,7 @@
                 {
                     "name": "up",
                     "id": "83b21e1b-763a-4cd5-a785-ff1550c1e2df",
-                    "path": "<Keyboard>/w",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -89,7 +98,7 @@
                 {
                     "name": "down",
                     "id": "4899c483-286c-43b0-b6da-587538e1e7aa",
-                    "path": "<Keyboard>/s",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -100,7 +109,7 @@
                 {
                     "name": "left",
                     "id": "dec96883-2299-4320-9957-d8c01b71c736",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -111,7 +120,7 @@
                 {
                     "name": "right",
                     "id": "d4a3d127-1e54-42d8-abcd-bae6d75e0f41",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -126,7 +135,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Throw",
+                    "action": "DodgerThrow",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -162,17 +171,28 @@
                     "action": "Catch",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "82827704-757e-415f-9d82-8bfa4190a31c",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
         {
             "name": "Shooter",
-            "id": "15d7649d-85de-47b9-a474-8cbd6716d73d",
+            "id": "c966d4c7-9065-4c24-b3c1-abb45ecd627e",
             "actions": [
                 {
                     "name": "Move",
                     "type": "Value",
-                    "id": "c2247426-6be1-4eb4-bb56-486c99dfd789",
+                    "id": "ea8912ab-dda0-45ce-9af2-a78c51448855",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -180,8 +200,17 @@
                 },
                 {
                     "name": "Throw",
+                    "type": "Value",
+                    "id": "dfb5f377-8a72-41de-9350-d019b9ebf483",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Dodge",
                     "type": "Button",
-                    "id": "f09fe23a-85e3-4f11-b725-ead6b6d849f2",
+                    "id": "426cdd35-6a79-4de8-bdbc-6b7751edf37b",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -190,7 +219,7 @@
                 {
                     "name": "Faint",
                     "type": "Button",
-                    "id": "55da10a0-691a-4506-9a35-8edc3e2c8f52",
+                    "id": "561c2de8-ca3e-4b7b-a482-1ba93b58ca33",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -199,7 +228,7 @@
                 {
                     "name": "Catch",
                     "type": "Button",
-                    "id": "c7d4c8b0-6a6c-4a1b-8dc6-09e913feb548",
+                    "id": "d24eee53-aa5a-4dcc-8f53-320781a9bdec",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -209,7 +238,7 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "40761a6b-14b2-412a-907d-a99bd42833e2",
+                    "id": "f7f222d0-03a6-4305-ba6a-fcddfe3c0fdc",
                     "path": "",
                     "interactions": "",
                     "processors": "",
@@ -220,7 +249,7 @@
                 },
                 {
                     "name": "WASD",
-                    "id": "552667e3-83b2-4c6c-b77d-76de273ed180",
+                    "id": "60936d7a-86e1-4bab-a5f7-0c397d94bd0b",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -231,7 +260,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "5baa7767-1687-4251-9862-63af85a90903",
+                    "id": "d5b0aedf-869a-432f-930d-f0b52aead163",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -242,7 +271,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "3e36eb5e-30b0-4074-931c-321515f7363f",
+                    "id": "b1147fff-74a5-49c8-b0b6-5313b4cf73f6",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -253,7 +282,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "a3d4bc5e-ce9f-477e-82bb-baa9eaa484e9",
+                    "id": "929cf5d5-467a-4292-a437-72f83575866e",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -264,7 +293,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "06e151dd-c021-4851-86c6-b09f0777231c",
+                    "id": "0de789b9-78e0-4a13-bbea-61a6c07b7ac2",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -275,7 +304,7 @@
                 },
                 {
                     "name": "",
-                    "id": "f47e277f-ae0c-4cae-aef4-679c8bba53cb",
+                    "id": "ea477e31-686e-4fa0-9858-557485257081",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
@@ -286,7 +315,18 @@
                 },
                 {
                     "name": "",
-                    "id": "70cd2a7f-9554-45f4-bdcc-3ffc0ba7e462",
+                    "id": "568d4171-c6b8-4227-87dc-a58893febd5a",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dodge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e28f8c3-3c88-45ce-bdd3-f7b8fec6d9f8",
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
@@ -297,7 +337,7 @@
                 },
                 {
                     "name": "",
-                    "id": "6e9e29cb-1560-479c-91d5-4132c5cac1db",
+                    "id": "38c68dbe-7885-4967-a5bb-28aa12f54072",
                     "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
