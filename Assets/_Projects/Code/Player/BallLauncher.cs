@@ -171,6 +171,15 @@ public class BallLauncher : MonoBehaviour
         }
 
         ballRb.AddForce(skewedDirection * currentPower, ForceMode.Impulse);
+
+        // Add this code right after the ball is launched in FireBall() method
+        // Place it after: ballRb.AddForce(shootDirection * currentPower, ForceMode.Impulse);
+
+        // Notify BallManager that a shot was made
+        if (BallManager.Instance != null && playerCtrl != null && playerCtrl.playerRole == PlayerController.MovementRole.Shooter)
+        {
+            BallManager.Instance.OnShooterShot();
+        }
         currentPower = minThrowForce;
     }
 

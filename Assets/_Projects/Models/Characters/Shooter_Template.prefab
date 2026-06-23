@@ -93,7 +93,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dc9a60e19190c144aa74975917262335, type: 3}
       propertyPath: m_Name
-      value: Shooter_1
+      value: Shooter_Template
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dc9a60e19190c144aa74975917262335, type: 3}
       propertyPath: m_TagString
@@ -127,6 +127,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dc9a60e19190c144aa74975917262335, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4924293890723098280}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: dc9a60e19190c144aa74975917262335, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4658295408703559992}
   m_SourcePrefab: {fileID: 100100000, guid: dc9a60e19190c144aa74975917262335, type: 3}
 --- !u!4 &1051237766411944542 stripped
 Transform:
@@ -167,7 +170,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2793391766742203959}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 20
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -268,7 +271,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 333b876e1ddbeee4a9488bdfeee6267c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  playerRole: 0
   moveSpeed: 10
+  showDebugMessages: 1
 --- !u!114 &4924293890723098280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,3 +287,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZoneRestrictor
   assignedZone: {fileID: 0}
+--- !u!114 &-4658295408703559992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2793391766742203959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5766b355712199a428c75fc232efbd51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRotation
+  rotationSpeed: 20
+  rotateToMovementDirection: 1
+  minimumMoveThreshold: 0.3
+  showDebugMessages: 1

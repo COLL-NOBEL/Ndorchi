@@ -4,80 +4,120 @@ public class BallCollision : MonoBehaviour
 {
     [Header("Projectile State Tracker")]
     public bool ballShotByShooter = false;
+    
+    [Header("Debug")]
+    public bool showDebugMessages = true;
 
     private void Start()
     {
-        // Initially the ball is safe and harmless
         ballShotByShooter = false;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        // If it hits a wall, it loses its lethal power
-        if (collision.gameObject.CompareTag("Wall"))
+        // Ignore collisions with the shooter who just threw the ball if ball isn't armed
+        if (collision.gameObject.CompareTag("Shooter") && !ballShotByShooter)
         {
-            Debug.Log("Ball hit the wall.");
-            ballShotByShooter = false; 
             return;
         }
 
+        if (showDebugMessages)
+            Debug.Log($"🏐 Ball collided with: {collision.gameObject.name} | Tag: {collision.gameObject.tag} | Armed: {ballShotByShooter}");
+
+        // Hit wall - disarm ball
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            if (showDebugMessages) Debug.Log("🧱 Ball hit wall - disarmed");
+            ballShotByShooter = false;
+            return;
+        }
+
+        // Hit a dodger
         if (collision.gameObject.CompareTag("Dodger"))
         {
-            DodgerCatch dodger = collision.gameObject.GetComponent<DodgerCatch>();
-
-            if (dodger != null)
+            HandleDodgerHit(collision.gameObject);
+        }
+        
+        // Hit the OTHER shooter (ball crossed the field)
+        if (collision.gameObject.CompareTag("Shooter") && ballShotByShooter)
+        {
+            if (showDebugMessages) Debug.Log("🎯 Armed ball reached OTHER shooter zone!");
+            ballShotByShooter = false;
+            
+            // Notify BallManager that ball reached other shooter
+            if (BallManager.Instance != null)
             {
-                // SAFETY 1: If the Dodger just dropped/threw the ball, ignore collision tracking
-                if (dodger.IsImmune()) return; 
+                BallManager.Instance.OnBallReachOtherShooter(collision.gameObject);
+            }
+        }
+    }
 
-                // SAFETY 2: If the Dodger times their button press perfectly
-                if (dodger.IsCurrentlyCatching())
-                {
-                    // Catching the ball disarms it safely!
-                    ballShotByShooter = false;
-                    dodger.SecureBall(this.gameObject);
-                    return; 
-                }
+    private void HandleDodgerHit(GameObject dodgerObject)
+    {
+        // Get the dodger catch component
+        DodgerCatch dodgerCatch = dodgerObject.GetComponent<DodgerCatch>();
+        
+        // If dodger has catch component
+        if (dodgerCatch != null)
+        {
+            // Check immunity first
+            if (dodgerCatch.IsImmune())
+            {
+                if (showDebugMessages) Debug.Log("🛡️ Dodger is immune - ignoring collision");
+                return;
             }
 
-            // --- CRITICAL HIT DETERMINATION ---
-            // The Dodger only gets eliminated if the ball was actively fired by a shooter!
-            if (ballShotByShooter)
+            // Check if dodger is actively catching
+            if (dodgerCatch.IsCurrentlyCatching())
             {
-                Debug.Log("💥 ELIMINATION HIT! The Dodger was struck by a live shot!");
-                
-                // Disarm the projectile immediately
+                if (showDebugMessages) Debug.Log("🤲 Dodger CAUGHT the ball!");
                 ballShotByShooter = false;
-                GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
-                GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-
-                if (GameManager.Instance != null)
-                {
-                    // 1. Process data list math tracking
-                    GameManager.Instance.EliminateActiveDodger();
-                    
-                    // 2. Check if there are more players left to cycle into the match
-                    if (GameManager.Instance.HasRemainingDodgers())
-                    {
-                        Debug.Log("🔄 Spawning next active Dodger from the bench lineup...");
-                        if (SpawnManager.Instance != null)
-                        {
-                            // Call the isolated Dodger-only respawn system
-                            SpawnManager.Instance.RespawnOnlyDodger();
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log("🚫 All 5 Dodgers eliminated! Team is wiped out. Triggering Swap...");
-                        
-                        // Task 4.5 Hook: Fire off the swap sequence automatically
-                        GameManager.Instance.TriggerTeamSwap();
-                    }
-                }
+                dodgerCatch.SecureBall(this.gameObject);
+                return;
             }
-            else
+        }
+
+        // If ball is armed, eliminate dodger
+        if (ballShotByShooter)
+        {
+            if (showDebugMessages) Debug.Log("💥 ELIMINATION! Dodger hit by active shot!");
+            
+            // Stop ball immediately
+            Rigidbody rb = GetComponent<Rigidbody>();
+            if (rb != null)
             {
-                Debug.Log("🥎 The ball bumped into the Dodger, but it wasn't shot by a Shooter. No penalty!");
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
+            ballShotByShooter = false;
+
+            // Process elimination
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.EliminateActiveDodger();
+            }
+            
+            // Reset ball to center and give to correct shooter
+            if (BallManager.Instance != null)
+            {
+                BallManager.Instance.ResetBallToCenter();
+            }
+        }
+        else
+        {
+            if (showDebugMessages) Debug.Log("🥎 Ball touched dodger but not armed - no penalty");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Dodger_Zone"))
+        {
+            if (showDebugMessages) Debug.Log("💨 Ball passed through DODGE ZONE!");
+            
+            if (ScoreManager.Instance != null && ballShotByShooter)
+            {
+                ScoreManager.Instance.AddScoreToActiveDodgers(1);
             }
         }
     }

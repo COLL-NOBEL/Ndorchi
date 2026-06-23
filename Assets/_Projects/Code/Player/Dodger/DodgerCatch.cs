@@ -5,73 +5,105 @@ public class DodgerCatch : MonoBehaviour
 {
     [Header("Catch Detection")]
     public CatchZoneDetector catchZone;
-    public Transform handHoldPoint; 
+    public Transform handHoldPoint;
 
     [Header("Timing Windows")]
-    public float catchDuration = 0.4f; 
-    public float dropImmunityDuration = 0.5f; // Time in seconds the Dodger is immune to the ball after letting go
+    public float catchDuration = 0.5f;
+    public float dropImmunityDuration = 0.5f;
 
-    [Header("Dodger Throw Settings")]
-    public float throwForce = 25f; 
+    [Header("Debug")]
+    public bool showDebugMessages = true;
 
     private bool hasBall = false;
     private GameObject caughtBall;
     private bool isTryingToCatch = false;
     private float catchTimer = 0f;
 
-    // Safety state to track immunity windows
     private bool isImmuneToOwnBall = false;
     private float immunityTimer = 0f;
 
     void Update()
     {
+        // Catch window timer
         if (isTryingToCatch)
         {
             catchTimer -= Time.deltaTime;
-            if (catchTimer <= 0f) isTryingToCatch = false;
+            if (catchTimer <= 0f)
+            {
+                isTryingToCatch = false;
+                if (showDebugMessages) Debug.Log($"❌ {gameObject.name}: Catch window expired");
+            }
         }
 
+        // Immunity timer
         if (isImmuneToOwnBall)
         {
             immunityTimer -= Time.deltaTime;
-            if (immunityTimer <= 0f) isImmuneToOwnBall = false;
+            if (immunityTimer <= 0f)
+            {
+                isImmuneToOwnBall = false;
+                if (showDebugMessages) Debug.Log($"🛡️ {gameObject.name}: Immunity ended");
+            }
         }
     }
 
-    public void OnCatch(InputValue value)
+    // This method can be called by other scripts
+    public void TriggerCatch()
     {
-        if (!value.isPressed || hasBall || isTryingToCatch) return;
+        if (hasBall)
+        {
+            if (showDebugMessages) Debug.Log($"⚠️ {gameObject.name}: Already holding ball!");
+            return;
+        }
+        
+        if (isTryingToCatch)
+        {
+            if (showDebugMessages) Debug.Log($"⚠️ {gameObject.name}: Already attempting catch!");
+            return;
+        }
 
+        // Check if ball is in catch zone
         if (catchZone != null && catchZone.IsBallInZone())
         {
             isTryingToCatch = true;
             catchTimer = catchDuration;
-            Debug.Log("🥋 Dodger triggers Catch Animation!");
+            if (showDebugMessages) Debug.Log($"🥋 {gameObject.name}: CATCH ATTEMPT! Window: {catchDuration}s");
         }
+        else
+        {
+            if (showDebugMessages) Debug.Log($"❌ {gameObject.name}: No ball in catch zone");
+        }
+    }
+
+    // Input System callback
+    public void OnCatch(InputValue value)
+    {
+        if (!value.isPressed) return;
+        TriggerCatch();
     }
 
     public void OnDodgerThrow(InputValue value)
     {
         if (!value.isPressed || !hasBall || caughtBall == null) return;
 
-        Debug.Log("🤾 Dodger Throws the ball back!");
+        if (showDebugMessages) Debug.Log($"🤾 {gameObject.name}: Throwing ball!");
         
         GameObject ballToThrow = caughtBall;
-        ReleaseBall(); 
+        ReleaseBall();
 
         Rigidbody ballRb = ballToThrow.GetComponent<Rigidbody>();
         if (ballRb != null)
         {
-            ballRb.AddForce(transform.forward * throwForce, ForceMode.Impulse);
+            ballRb.AddForce(transform.forward * 25f, ForceMode.Impulse);
         }
     }
 
     public void OnDodgerDrop(InputValue value)
     {
-        if (!value.isPressed || !hasBall || caughtBall == null) return;
+        if (!hasBall || caughtBall == null) return;
 
-        Debug.Log("👇 Dodger drops the ball at their feet.");
-        ReleaseBall(); 
+        if (showDebugMessages) Debug.Log($"👇 {gameObject.name}: Dropping ball");
+        ReleaseBall();
     }
 
     public bool IsCurrentlyCatching()
@@ -79,21 +111,49 @@ public class DodgerCatch : MonoBehaviour
         return isTryingToCatch;
     }
 
-    // Public getter so BallCollision script can respect the drop safety window
     public bool IsImmune()
     {
         return isImmuneToOwnBall;
     }
+    
+    public bool HasBall()
+    {
+        return hasBall;
+    }
 
     public void SecureBall(GameObject ball)
     {
+        if (ball == null)
+        {
+            Debug.LogError($"❌ {gameObject.name}: Tried to secure null ball!");
+            return;
+        }
+
+        // Reset catch state
         isTryingToCatch = false;
         hasBall = true;
         caughtBall = ball;
 
-        ball.transform.SetParent(handHoldPoint);
-        ball.transform.localPosition = Vector3.zero;
+        if (showDebugMessages) Debug.Log($"✨ {gameObject.name}: SECURING BALL!");
 
+        // Determine attachment point
+        Transform attachPoint = handHoldPoint;
+        if (attachPoint == null)
+        {
+            // Create runtime hand point if not assigned
+            GameObject handObj = new GameObject("RuntimeHandPoint");
+            handObj.transform.SetParent(transform);
+            handObj.transform.localPosition = new Vector3(0, 1.5f, 1f);
+            attachPoint = handObj.transform;
+            if (showDebugMessages) Debug.Log($"⚠️ {gameObject.name}: Created runtime hand point - assign handHoldPoint in inspector!");
+        }
+
+        // Parent the ball
+        ball.transform.SetParent(attachPoint);
+        ball.transform.localPosition = Vector3.zero;
+        ball.transform.localRotation = Quaternion.identity;
+
+        // Freeze physics
         Rigidbody ballRb = ball.GetComponent<Rigidbody>();
         if (ballRb != null)
         {
@@ -102,12 +162,60 @@ public class DodgerCatch : MonoBehaviour
             ballRb.isKinematic = true;
         }
 
+        // Disable collider to prevent unwanted collisions
         Collider ballCollider = ball.GetComponent<Collider>();
-        if (ballCollider != null) ballCollider.enabled = false;
+        if (ballCollider != null)
+        {
+            ballCollider.enabled = false;
+        }
 
+        // Disarm ball
+        BallCollision ballCol = ball.GetComponent<BallCollision>();
+        if (ballCol != null)
+        {
+            ballCol.ballShotByShooter = false;
+        }
+
+        if (showDebugMessages) Debug.Log($"✅ {gameObject.name}: Ball secured successfully");
+
+        // Award points
         if (ScoreManager.Instance != null)
         {
             ScoreManager.Instance.AddScoreToActiveDodgers(10);
+            if (showDebugMessages) Debug.Log("+10 points for catch!");
+        }
+    }
+
+    public void ForceReleaseBall()
+    {
+        if (caughtBall != null)
+        {
+            // Set immunity
+            isImmuneToOwnBall = true;
+            immunityTimer = dropImmunityDuration;
+
+            // Unparent
+            caughtBall.transform.SetParent(null);
+
+            // Re-enable physics
+            Rigidbody ballRb = caughtBall.GetComponent<Rigidbody>();
+            if (ballRb != null)
+            {
+                ballRb.isKinematic = false;
+                ballRb.linearVelocity = Vector3.zero;
+            }
+
+            // Re-enable collider
+            Collider ballCollider = caughtBall.GetComponent<Collider>();
+            if (ballCollider != null)
+            {
+                ballCollider.enabled = true;
+            }
+
+            if (showDebugMessages) Debug.Log($"🏐 {gameObject.name}: Force released ball");
+
+            caughtBall = null;
+            hasBall = false;
         }
     }
 
@@ -115,17 +223,32 @@ public class DodgerCatch : MonoBehaviour
     {
         if (caughtBall == null) return;
 
-        // Turn on safety immunity right before resetting physics
+        // Set immunity
         isImmuneToOwnBall = true;
         immunityTimer = dropImmunityDuration;
 
+        // Unparent
         caughtBall.transform.SetParent(null);
 
+        // Re-enable physics
         Rigidbody ballRb = caughtBall.GetComponent<Rigidbody>();
-        if (ballRb != null) ballRb.isKinematic = false;
+        if (ballRb != null)
+        {
+            ballRb.isKinematic = false;
+            ballRb.linearVelocity = Vector3.zero;
+        }
 
+        // Re-enable collider
         Collider ballCollider = caughtBall.GetComponent<Collider>();
-        if (ballCollider != null) ballCollider.enabled = true;
+        if (ballCollider != null)
+        {
+            ballCollider.enabled = true;
+        }
+
+        // Drop slightly in front of player
+        caughtBall.transform.position = transform.position + transform.forward * 1.5f + Vector3.up * 0.5f;
+
+        if (showDebugMessages) Debug.Log($"🏐 {gameObject.name}: Ball released");
 
         caughtBall = null;
         hasBall = false;

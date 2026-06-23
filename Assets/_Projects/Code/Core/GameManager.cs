@@ -106,15 +106,30 @@ public class GameManager : MonoBehaviour
             dodgerTeam.currentActivePlayerIndex++;
         }
 
-        // Check if all 5 players are gone out of play
         if (!HasRemainingDodgers())
         {
             Debug.Log("🎯 All Dodgers have been wiped out!");
+            if (ScoreManager.Instance != null)
+            {
+                ScoreManager.Instance.AddScoreToActiveDodgers(5);
+            }
             TriggerTeamSwap();
         }
         else
         {
-            if (SpawnManager.Instance != null) SpawnManager.Instance.RespawnOnlyDodger();
+            Debug.Log($"🔄 Spawning next Dodger... ({dodgerTeam.currentActivePlayerIndex + 1}/5)");
+            if (SpawnManager.Instance != null) 
+            {
+                SpawnManager.Instance.RespawnOnlyDodger();
+                
+                // ENSURE the new dodger does NOT get the ball
+                // The ball stays with whoever had it (shooter or center)
+                if (BallManager.Instance != null)
+                {
+                    // Don't reset ball - let it stay in play or with current shooter
+                    // BallManager will handle ball assignment
+                }
+            }
         }
     }
 

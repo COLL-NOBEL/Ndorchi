@@ -34,6 +34,24 @@ public class SpawnManager : MonoBehaviour
         SpawnCurrentRoundPlayers();
     }
 
+    // Add these methods to your SpawnManager class
+
+    /// <summary>
+    /// Returns the currently active left shooter GameObject
+    /// </summary>
+    public GameObject GetLeftShooter()
+    {
+        return currentLiveShooterLeft;
+    }
+
+    /// <summary>
+    /// Returns the currently active right shooter GameObject
+    /// </summary>
+    public GameObject GetRightShooter()
+    {
+        return currentLiveShooterRight;
+    }
+
     public void SpawnCurrentRoundPlayers()
     {
         ClearActivePlayers();
