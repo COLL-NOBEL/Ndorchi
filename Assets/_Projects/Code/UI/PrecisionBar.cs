@@ -14,6 +14,7 @@ public class PrecisionBar : MonoBehaviour
 
     void Start()
     {
+        timeValue = Random.Range(-1, 1);
         StartOscillation();
     }
 
@@ -24,6 +25,10 @@ public class PrecisionBar : MonoBehaviour
             // Utilisation d'une fonction sinusoïdale pour osciller proprement entre 0 et 1
             timeValue += Time.deltaTime * speed;
             precisionSlider.value = (Mathf.Sin(timeValue) + 1f) / 2f;
+        }
+        else
+        {
+            timeValue = Random.Range(-1, 1);
         }
     }
 

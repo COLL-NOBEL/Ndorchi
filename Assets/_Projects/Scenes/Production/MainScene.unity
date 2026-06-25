@@ -1185,7 +1185,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 3.6
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -1416,7 +1416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallLauncher
   launchPoint: {fileID: 45721845}
-  slider: {fileID: 0}
+  slider: {fileID: 1755053071}
   precisionBar: {fileID: 375754823}
   maxDeviationAngle: 30
   throwForce: 20
@@ -1683,7 +1683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07afc2aa84f17df47b34b5b97666a0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PrecisionBar
-  precisionSlider: {fileID: 0}
+  precisionSlider: {fileID: 1755053071}
   speed: 2
 --- !u!1 &398217758
 GameObject:
@@ -3548,13 +3548,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1125127417}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 650f94eb051c97a468f0cb7f3e657e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallLauncher
   launchPoint: {fileID: 2104299238}
-  slider: {fileID: 0}
+  slider: {fileID: 1051747445}
   precisionBar: {fileID: 1125127426}
   maxDeviationAngle: 30
   throwForce: 20
@@ -3682,7 +3682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
   m_Actions: {fileID: -944628639613478452, guid: 8b2810d11b06a9440995d962d8b2a204, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -3693,7 +3693,43 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d52e9e84-fa70-4d63-aa5f-76a28ba78806
+    m_ActionName: 'Dodger/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 91fe0bcb-59e5-478a-a9d3-44e73f692151
+    m_ActionName: 'Dodger/Throw[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 09fe693b-6168-4ac9-a2fd-b3a693066f79
+    m_ActionName: 'Dodger/Dodge[/Keyboard/z]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 40007470-8eb7-42b6-9af1-15eb6216bbc7
+    m_ActionName: 'Dodger/Faint[/Keyboard/f]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1e2e31ac-ff8e-46f4-b384-fd8d8af52dc9
+    m_ActionName: 'Dodger/Catch[/Keyboard/c]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c2247426-6be1-4eb4-bb56-486c99dfd789
+    m_ActionName: 'Shooter/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f09fe23a-85e3-4f11-b725-ead6b6d849f2
+    m_ActionName: 'Shooter/Throw[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 55da10a0-691a-4506-9a35-8edc3e2c8f52
+    m_ActionName: 'Shooter/Faint[/Keyboard/f]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c7d4c8b0-6a6c-4a1b-8dc6-09e913feb548
+    m_ActionName: 'Shooter/Catch[/Keyboard/c]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Shooter
@@ -3821,7 +3857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07afc2aa84f17df47b34b5b97666a0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PrecisionBar
-  precisionSlider: {fileID: 0}
+  precisionSlider: {fileID: 1051747445}
   speed: 2
 --- !u!1 &1146277828
 GameObject:
@@ -3841,6 +3877,9 @@ GameObject:
   - component: {fileID: 1146277836}
   - component: {fileID: 1146277837}
   - component: {fileID: 1146277838}
+  - component: {fileID: 1146277841}
+  - component: {fileID: 1146277840}
+  - component: {fileID: 1146277839}
   m_Layer: 0
   m_Name: Dodger
   m_TagString: Dodger
@@ -4054,6 +4093,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07bfb83377645cc4d90257d5204794a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DodgerRelease
+  catchPoint: {fileID: 1704700009}
+--- !u!114 &1146277839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146277828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a57984f447d6275419716077de2a000c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DodgeSensor
+--- !u!114 &1146277840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146277828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07afc2aa84f17df47b34b5b97666a0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PrecisionBar
+  precisionSlider: {fileID: 617001375}
+  speed: 3
+--- !u!114 &1146277841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146277828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75b907d29dbd9c846affbec6e44b2c5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DodgerCatch
+  precisionBar: {fileID: 1146277840}
   catchPoint: {fileID: 1704700009}
 --- !u!1 &1153837639
 GameObject:
